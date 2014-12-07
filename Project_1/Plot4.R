@@ -2,7 +2,7 @@
 ## Exploratory Data Analysis Course - Data Science Specialization
 ## December 2014
 
-## Project 1 - Plot 3
+## Project 1 - Plot 4
 
 # Function loads the required file
 loadData <- function() {
@@ -25,16 +25,27 @@ HPC$Date_Time <- strptime (Date_Time, "%d/%m/%Y %H:%M:%S")
 
 
 # Plotting
-png (filename= "Plot3.png", width = 480, height = 480, units = "px")
-plot (HPC$Date_Time, HPC$Sub_metering_1, 
-        type = "l",
-        ylab = "Energy sub metering",
-        xlab = "")       
-        lines(HPC$Date_Time, HPC$Sub_metering_2, type = "l", col = "red")
-        lines(HPC$Date_Time, HPC$Sub_metering_3, type = "l", col = "blue")
-        legend("topright", lty=1, col=c("black","red","blue"), legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+png (filename= "Plot4.png", width = 480, height = 480, units = "px")
+par (mfrow = c (2,2))
+with (HPC,{
+        plot (HPC$Date_Time, HPC$Global_active_power, 
+                type = "l",
+                ylab = "Global Active Power",
+                xlab = "")
+        plot (HPC$Date_Time, HPC$Voltage, 
+                type = "l",
+                ylab = "Voltage",
+                xlab = "datetime")
+        plot (HPC$Date_Time, HPC$Sub_metering_1, 
+                type = "l",
+                ylab = "Energy sub metering",
+                xlab = "")
+                lines (HPC$Date_Time, HPC$Sub_metering_2, type = "l", col = "red")
+                lines (HPC$Date_Time, HPC$Sub_metering_3, type = "l", col = "blue")
+                legend("topright", lty=1, col=c("black","red","blue"), legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+        plot (HPC$Date_Time, HPC$Global_reactive_power, 
+                type = "l",
+                ylab = "Global_reactive_power",
+                xlab = "datetime")
+})
 dev.off()
-
-
-
-
