@@ -2,7 +2,7 @@
 ## Exploratory Data Analysis Course - Data Science Specialization
 ## December 2014
 
-## Project 1 - Plot 1
+## Project 1 - Plot 2
 
 # Function loads the required file
 loadData <- function() {
@@ -15,15 +15,23 @@ loadData <- function() {
 }
 loadData()
 
-## Load & name columns of relevant data 
+## Load & name comlums of relevant data 
 HPC <- read.table(text = grep("^[1,2]/2/2007", readLines("household_power_consumption.txt"), value = TRUE), sep = ";", na.strings = "?")
 colnames(HPC) <- c("Date","Time","Global_active_power","Global_reactive_power","Voltage","Global_intensity","Sub_metering_1","Sub_metering_2","Sub_metering_3")
 
+## Format Date - Time 
+Date_Time <- paste (HPC$Date, HPC$Time, sep ="")
+HPC$Date_Time <- strptime (Date_Time, "%d/%m/%Y %H:%M:%S")
+
+
 # Plotting
-png(filename= "Plot1.png", width = 480, height = 480, units = "px")
-hist (HPC$Global_active_power, 
-      main = "Global Active Power", 
-      xlab = "Global Active Power (Kilowatts)", 
-      col = "red")
+png (filename= "Plot2.png", width = 480, height = 480, units = "px")
+plot (HPC$Date_Time, HPC$Global_active_power, 
+      type = "l",
+      ylab = "Global Active Power (kilowatts)",
+      xlab = "")
 dev.off()
+
+
+
 
